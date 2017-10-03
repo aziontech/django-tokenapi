@@ -8,7 +8,7 @@ class TokenBackend(ModelBackend):
     def authenticate(self, pk, token):
         try:
             user = get_user_model().objects.get(pk=pk)
-        except get_user_model().DoesNotExist:
+        except (get_user_model().DoesNotExist, ValueError):
             return None
 
         # Reject users with is_active=False. Custom user models that don't have
